@@ -18,6 +18,8 @@
 *.zip
 *.tar.gz
 *.rar
+*.idea
+*.iml
 
 target
 out
