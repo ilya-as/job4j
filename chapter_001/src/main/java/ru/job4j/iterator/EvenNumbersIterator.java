@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * Итератор для четным чмслам массива.
+ * Итератор по четным чмслам массива.
  *
  * @author Ilya Aslamov
  * @version $Id$
