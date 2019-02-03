@@ -15,15 +15,12 @@ public class EvenNumbersIterator implements Iterator {
     private int index;
 
     /**
-     * Конструктор, инициализирует массив items и ставит указатель index
-     * на первое чётное число если оно есть, в противном случае указатель остается на -1.
+     * Конструктор, инициализирует массив items
      *
      * @param items массив чисел.
      */
     public EvenNumbersIterator(int[] items) {
         this.items = items;
-        this.index = -1;
-        this.index = nextIndexEvenElement();
     }
 
     /**
@@ -34,22 +31,15 @@ public class EvenNumbersIterator implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        return index > -1;
-    }
-
-    /**
-     * Ищет следующее четное число после указателя в массиве items,
-     * Если число не найдено, возвращает -1.
-     *
-     * @return индекс четного числа в массиве items, либо -1.
-     */
-    public int nextIndexEvenElement() {
-        for (int i = index + 1; i < items.length; i++) {
+        boolean res = false;
+        for (int i = index; i < items.length; i++) {
             if (items[i] % 2 == 0) {
-                return i;
+                index = i;
+                res = true;
+                break;
             }
         }
-        return -1;
+        return res;
     }
 
     /**
@@ -60,12 +50,10 @@ public class EvenNumbersIterator implements Iterator {
      */
     @Override
     public Object next() {
-        if (index == -1) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        int currentElement = items[index];
-        index = nextIndexEvenElement();
-        return currentElement;
+        return items[index++];
     }
 
     /**
