@@ -50,11 +50,7 @@ public class SimpleArray<T> implements Iterable<T> {
      */
     public void set(int position, T model) {
         checkIndexOutOfBounds(position);
-        if (position > index) {
-            array[index++] = model;
-        } else {
-            array[position] = model;
-        }
+        array[position] = model;
     }
 
     /**
@@ -64,10 +60,8 @@ public class SimpleArray<T> implements Iterable<T> {
      */
     public void remove(int position) {
         checkIndexOutOfBounds(position);
-        for (int i = position; i < index; i++) {
-            array[i] = array[i + 1];
-        }
-        array[index--] = null;
+        index--;
+        System.arraycopy(array, position + 1, array, position, array.length - position - 1);
     }
 
     /**
