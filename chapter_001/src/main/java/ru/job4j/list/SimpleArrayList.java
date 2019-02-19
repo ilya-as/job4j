@@ -23,9 +23,14 @@ public class SimpleArrayList<E> {
 
     /**
      * Удаляет первый элемент из списка
+     *
      * @return возвращает данные удаляемого элемента
+     * или null,если список пустой
      */
     public E delete() {
+        if (this.size == 0) {
+            return null;
+        }
         E temp = first.date;
         first = first.next;
         size--;
