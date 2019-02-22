@@ -36,6 +36,43 @@ public class SimpleLinkedList<E> implements Iterable<E> {
     }
 
     /**
+     * Вставка объекта в начало списка.
+     *
+     * @param value объект, который необходимо добавить в хранилище.
+     */
+    public void insertFirst(E value) {
+        Node<E> node = new Node<>(value);
+        if (size == 0) {
+            last = node;
+        }
+        node.next = first;
+        first = node;
+        modCount++;
+        size++;
+    }
+
+    /**
+     * Удаление последнего объекта из хранилища.
+     *
+     * @return удаляемый объект.
+     */
+    public E deleteFirst() {
+        if (size == 0) {
+            return null;
+        }
+        E result = first.data;
+        if (size == 1) {
+            last = null;
+            first = null;
+        } else {
+            first = first.next;
+        }
+        size--;
+        modCount--;
+        return result;
+    }
+
+    /**
      * Возвращает ссылку на объект из хранилища по заданному индексу.
      *
      * @param index заданный индекс.
