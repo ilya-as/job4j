@@ -1,34 +1,42 @@
 package ru.job4j.list;
 
 /**
- * контейнер Queue FIFO на базе SimpleLinkedList.
+ * контейнер Queue FIFO на 2-х стеках.
  *
  * @author Ilya Aslamov
  * @version $Id$
  * @since 0.1
  */
 public class SimpleQueue<T> {
-    private SimpleLinkedList<T> container;
+    private SimpleStack<T> enqueue;
+    private SimpleStack<T> dequeue;
 
     public SimpleQueue() {
-        this.container = new SimpleLinkedList<>();
+        this.enqueue = new SimpleStack<>();
+        this.dequeue = new SimpleStack<>();
     }
 
     /**
-     * Удаляет последний элемент из очереди.
+     * Переносит элементы из enqueue в dequeue
+     * Удаляет первый элемент из очереди dequeue.
      *
      * @return удаленный элемент из начала очереди.
      */
     public T poll() {
-        return container.deleteFirst();
+        if (dequeue.isEmpty()) {
+            while (!enqueue.isEmpty()) {
+                dequeue.push(enqueue.poll());
+            }
+        }
+        return dequeue.poll();
     }
 
     /**
-     * Добавляет элемент в конец очереди.
+     * Добавляет элемент в начало стека enqueue.
      *
      * @param value элемент.
      */
     public void push(T value) {
-        container.add(value);
+        enqueue.push(value);
     }
 }

@@ -24,6 +24,15 @@ public class SimpleStack<T> {
     }
 
     /**
+     * Проверка на контейнера на пустоту.
+     *
+     * @return true, если контейнер пуст.
+     */
+    public boolean isEmpty(){
+        return container.isEmpty();
+    }
+
+    /**
      * Добавляет элемент в начало очереди.
      *
      * @param value элемент.

@@ -88,6 +88,15 @@ public class SimpleLinkedList<E> implements Iterable<E> {
     }
 
     /**
+     * Проверка на контейнера на пустоту.
+     *
+     * @return true, если контейнер пуст.
+     */
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    /**
      * Проверяет на наличие индекса в хранилище.
      *
      * @param index проверяемый индекс
