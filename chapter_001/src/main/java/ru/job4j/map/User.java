@@ -1,6 +1,7 @@
 package ru.job4j.map;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 /**
  * Класс User для тестирования коллекции map
@@ -10,6 +11,12 @@ import java.util.Calendar;
  * @since 0.1
  */
 public class User {
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
+    }
+
     private String name;
     private int children;
     private Calendar birthday;

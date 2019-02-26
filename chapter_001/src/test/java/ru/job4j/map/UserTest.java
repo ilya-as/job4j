@@ -28,8 +28,8 @@ public class UserTest {
         map.put(user2, "user2");
         System.out.println("map: " + map);
         System.out.println("разный hashcode у объектов user1 и  user2");
-        System.out.println("hashcode user1: " + map.get(user1).hashCode());
-        System.out.println("hashcode user2: " + map.get(user2).hashCode());
+        System.out.println("hashcode user1: " + user1.hashCode());
+        System.out.println("hashcode user2: " + user2.hashCode());
         System.out.println("сравнение объектов через equals: " + user1.equals(user2));
     }
 }
