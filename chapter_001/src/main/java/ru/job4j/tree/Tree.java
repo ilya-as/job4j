@@ -37,9 +37,10 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean result = false;
-        Optional<Node<E>> finded = findBy(parent);
-        if (finded.isPresent()) {
-            finded.get().add(new Node<>(child));
+        Optional<Node<E>> findedParent = findBy(parent);
+        Optional<Node<E>> findedChild = findBy(child);
+        if (findedParent.isPresent() && !findedChild.isPresent()) {
+            findedParent.get().add(new Node<>(child));
             result = true;
         }
         return result;
@@ -74,15 +75,13 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      */
     @Override
     public Iterator<E> iterator() {
+
+        /**
+         * Список элементов текущего уровня и потомков текущего корневого элемента.
+         */
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(this.root);
         return new Iterator<E>() {
-            /**
-             * Итератор List.
-             */
-            private Iterator<E> it;
-            /**
-             * Список всех элементов дерева.
-             */
-            private List<E> list = null;
 
             /**
              * Проверяет наличие следующих элементов.
@@ -91,12 +90,8 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
              */
             @Override
             public boolean hasNext() {
-                if (list == null) {
-                    list = new LinkedList<>();
-                    traverse(root, list);
-                    it = list.iterator();
-                }
-                return it.hasNext();
+
+                return !queue.isEmpty();
             }
 
             /**
@@ -105,26 +100,16 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
              */
             @Override
             public E next() {
-                if (!hasNext()) {
+                if (!(hasNext())) {
                     throw new NoSuchElementException();
+                } else {
+                    Node<E> el = queue.poll();
+                    for (Node<E> child : el.leaves()) {
+                        queue.offer(child);
+                    }
+                    return el.getValue();
                 }
-                return it.next();
             }
         };
-    }
-
-    /**
-     * Рекурсивно добавляет все элементы дерева наследуюие от указанного узла в list.
-     *
-     * @param root корневой элемент.
-     * @param list список List для сбора значений.
-     */
-    private void traverse(Node<E> root, List<E> list) {
-        if (root != null) {
-            list.add(root.getValue());
-            for (Node<E> node : root.leaves()) {
-                traverse(node, list);
-            }
-        }
     }
 }

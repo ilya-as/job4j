@@ -53,11 +53,11 @@ public class TreeTest {
         assertThat(testIterator.hasNext(), is(true));
         assertThat(testIterator.next(), is(2));
         assertThat(testIterator.hasNext(), is(true));
+        assertThat(testIterator.next(), is(3));
+        assertThat(testIterator.hasNext(), is(true));
         assertThat(testIterator.next(), is(4));
         assertThat(testIterator.hasNext(), is(true));
         assertThat(testIterator.next(), is(5));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.next(), is(3));
         assertThat(testIterator.hasNext(), is(true));
         assertThat(testIterator.next(), is(6));
         assertThat(testIterator.hasNext(), is(true));
