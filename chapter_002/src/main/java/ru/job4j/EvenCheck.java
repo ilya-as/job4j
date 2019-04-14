@@ -1,7 +1,6 @@
 package ru.job4j;
 
-import java.io.InputStream;
-import java.util.Scanner;
+import java.io.*;
 
 /**
  * Проверка байтового потока.
@@ -18,15 +17,16 @@ public class EvenCheck {
      * @return true - если число четное, false-нечетное.
      */
     public boolean isNumber(InputStream is) {
-        Scanner scanner = null;
         boolean result = false;
         try {
-            scanner = new Scanner(is);
-            if (scanner.hasNextInt()) {
-                int value = scanner.nextInt();
-                result = value % 2 == 0;
+            String string = new String(is.readAllBytes());
+            for (int i = 0; i < string.length(); i++) {
+                if (!(Character.isDigit(string.charAt(i)))) {
+                    return false;
+                }
             }
-            scanner.close();
+            char lastCharacter = string.charAt(string.length() - 1);
+            result = lastCharacter % 2 == 0;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

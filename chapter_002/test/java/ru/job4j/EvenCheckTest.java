@@ -21,19 +21,19 @@ public class EvenCheckTest {
 
     @Test
     public void whenNumberEvenThenTrue() {
-        InputStream is = new ByteArrayInputStream("122".getBytes());
+        InputStream is = new ByteArrayInputStream("123456789123456789123456789123456788".getBytes());
         assertThat(this.even.isNumber(is), is(true));
     }
 
     @Test
     public void whenNumberOddThenFalse() {
-        InputStream is = new ByteArrayInputStream("19".getBytes());
+        InputStream is = new ByteArrayInputStream("123456789123456789123456789123456789".getBytes());
         assertThat(this.even.isNumber(is), is(false));
     }
 
     @Test()
     public void whenNotNumberThenFalse() {
-        InputStream is = new ByteArrayInputStream("Not Number".getBytes());
+        InputStream is = new ByteArrayInputStream("123456789мама_мыла_раму89123456788".getBytes());
         assertThat(this.even.isNumber(is), is(false));
     }
 }
