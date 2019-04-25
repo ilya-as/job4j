@@ -1,3 +1,4 @@
+
 <project>
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.job4j</groupId>
@@ -15,6 +16,7 @@
 
     <modules>
         <module>chapter_001</module>
+        <module>chapter_002</module>
     </modules>
 <dependencies>
     <dependency>
