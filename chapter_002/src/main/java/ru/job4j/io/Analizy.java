@@ -1,35 +1,34 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Analizy {
 
-    private boolean writeLog = false;
+    private String timeStart;
+    private List<String> timeList = new ArrayList<>();
 
     public void unavailable(String source, String target) {
-        try (BufferedReader read = new BufferedReader(new FileReader(source));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(target))) {
-
+        try (BufferedReader read = new BufferedReader(new FileReader(source))) {
             read.lines().filter(line -> !line.equals("")).forEach(s -> {
                 String[] line = s.split(" ");
                 int statusKey = Integer.parseInt(line[0]);
-                if (!writeLog && statusKey >= 400) {
-                    writeLog = true;
-                    try {
-                        writer.write(line[1] + ";");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (writeLog && statusKey < 400) {
-                    writeLog = false;
-                    try {
-                        writer.write(line[1] + "\n");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                if (timeStart == null && statusKey >= 400) {
+                    timeStart = line[1] + ";";
+                } else if (timeStart != null && statusKey < 400) {
+                    timeList.add(timeStart + line[1]);
+                    timeStart = null;
                 }
-
             });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
+            for (String line : timeList) {
+                out.println(line);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
