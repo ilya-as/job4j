@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class ConsoleChat {
-    private String PATH_TO_PROPERTIES;
-    private String PATH_TO_LOG;
-    private String PATH_TO_Answer;
-    private ArrayList<String> AnswerList = new ArrayList<>();
+    private final String PATH_TO_PROPERTIES;
+    private String pathToLog;
+    private String pathToAnswer;
+    private  ArrayList<String> AnswerList;
     private boolean needsAnswer = true;
 
     public ConsoleChat(String PATH_TO_PROPERTIES) {
@@ -23,7 +23,7 @@ public class ConsoleChat {
                 new BufferedReader(
                         new InputStreamReader(System.in));
 
-        try (FileWriter fw = new FileWriter(PATH_TO_LOG)) {
+        try (FileWriter fw = new FileWriter(pathToLog)) {
             do {
                 str = br.readLine();
                 if (str.compareTo("finish") == 0) {
@@ -49,8 +49,8 @@ public class ConsoleChat {
         try {
             FileInputStream fileInputStream = new FileInputStream(PATH_TO_PROPERTIES);
             prop.load(fileInputStream);
-            PATH_TO_Answer = prop.getProperty("PATH_TO_Answer");
-            PATH_TO_LOG = prop.getProperty("PATH_TO_LOG");
+            pathToAnswer = prop.getProperty("pathToAnswer");
+            pathToLog = prop.getProperty("pathToLog");
             populateAnswerList();
         } catch (IOException e) {
             System.out.println("Ошибка в программе: файл " + PATH_TO_PROPERTIES + " не обнаружен!");
@@ -62,7 +62,8 @@ public class ConsoleChat {
     }
 
     private void populateAnswerList() {
-        try (BufferedReader read = new BufferedReader(new FileReader(PATH_TO_Answer))) {
+        AnswerList = new ArrayList<>();
+        try (BufferedReader read = new BufferedReader(new FileReader(pathToAnswer))) {
             read.lines().filter(line -> !line.equals("")).forEach(s -> AnswerList.add(s));
         } catch (IOException e) {
             System.out.println("Ошибка при чтении файла: " + PATH_TO_PROPERTIES);
