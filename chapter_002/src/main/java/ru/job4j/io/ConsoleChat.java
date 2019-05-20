@@ -24,14 +24,18 @@ public class ConsoleChat {
                         new InputStreamReader(System.in));
 
         try (FileWriter fw = new FileWriter(pathToLog)) {
+            label:
             do {
                 str = br.readLine();
-                if (str.equals("finish")) {
-                    break;
-                } else if (str.equals("stop")) {
-                    needsAnswer = false;
-                } else if (str.equals("continue")) {
-                    needsAnswer = true;
+                switch (str) {
+                    case "finish":
+                        break label;
+                    case "stop":
+                        needsAnswer = false;
+                        break;
+                    case "continue":
+                        needsAnswer = true;
+                        break;
                 }
 
                 if (needsAnswer) {
