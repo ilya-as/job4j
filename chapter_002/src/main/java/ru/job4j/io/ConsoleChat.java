@@ -26,11 +26,11 @@ public class ConsoleChat {
         try (FileWriter fw = new FileWriter(pathToLog)) {
             do {
                 str = br.readLine();
-                if (str.compareTo("finish") == 0) {
+                if (str.equals("finish")) {
                     break;
-                } else if (str.compareTo("stop") == 0) {
+                } else if (str.equals("stop")) {
                     needsAnswer = false;
-                } else if (str.compareTo("continue") == 0) {
+                } else if (str.equals("continue")) {
                     needsAnswer = true;
                 }
 
@@ -40,7 +40,7 @@ public class ConsoleChat {
                 }
                 str = str + answer + "\r\n";
                 fw.write(str);
-            } while (str.compareTo("finish") != 0);
+            } while (!str.equals("finish"));
         }
     }
 
