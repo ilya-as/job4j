@@ -2,18 +2,24 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class ConsoleChat {
     private final String PATH_TO_PROPERTIES;
     private String pathToLog;
     private String pathToAnswer;
-    private  ArrayList<String> AnswerList;
+    private ArrayList<String> AnswerList;
     private boolean needsAnswer = true;
+    private final Map<String, Runnable> acts = new HashMap<>();
 
     public ConsoleChat(String PATH_TO_PROPERTIES) {
         this.PATH_TO_PROPERTIES = PATH_TO_PROPERTIES;
         readProperty();
+        acts.put("stop", () -> this.turnAnswers(false));
+        acts.put("continue", () -> this.turnAnswers(true));
+        acts.put("finish", () -> this.turnAnswers(false));
     }
 
     public void startChat() throws IOException {
@@ -24,28 +30,26 @@ public class ConsoleChat {
                         new InputStreamReader(System.in));
 
         try (FileWriter fw = new FileWriter(pathToLog)) {
-            label:
             do {
                 str = br.readLine();
-                switch (str) {
-                    case "finish":
-                        break label;
-                    case "stop":
-                        needsAnswer = false;
-                        break;
-                    case "continue":
-                        needsAnswer = true;
-                        break;
+                if (acts.containsKey(str)) {
+                    acts.get(str).run();
                 }
-
-                if (needsAnswer) {
+                if (needsAnswer()) {
                     answer = getAnswer();
                     System.out.println(answer);
                 }
-                str = str + answer + "\r\n";
-                fw.write(str);
+                fw.write(str + answer + "\r\n");
             } while (!str.equals("finish"));
         }
+    }
+
+    private void turnAnswers(boolean checkValue) {
+        this.needsAnswer = checkValue;
+    }
+
+    private boolean needsAnswer() {
+        return this.needsAnswer;
     }
 
     private void readProperty() {
