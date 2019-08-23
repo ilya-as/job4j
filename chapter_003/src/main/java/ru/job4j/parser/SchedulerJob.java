@@ -28,9 +28,9 @@ public class SchedulerJob implements Job {
         try {
             storeSQL.addVacancy(htmlParser.getDataFromURL());
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+               LOG.error(e.getMessage(), e);
         } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
+                 LOG.error(e.getMessage(), e);
         }
     }
 }

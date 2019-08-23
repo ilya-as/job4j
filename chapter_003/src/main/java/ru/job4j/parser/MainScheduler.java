@@ -13,13 +13,11 @@ import org.quartz.impl.StdSchedulerFactory;
  * @since 0.1
  */
 public class MainScheduler {
+    private final static Logger LOGGER = LogManager.getLogger(MainScheduler.class);
     private Config parserConfig = new Config();
     private String cronExpression = parserConfig.get("cron.time");
 
-    private final static Logger LOGGER = LogManager.getLogger(MainScheduler.class);
-
     public void startScheduler() throws SchedulerException {
-
         JobDetail job = JobBuilder.newJob(SchedulerJob.class).build();
         Trigger trigger = TriggerBuilder
                 .newTrigger()
@@ -27,8 +25,8 @@ public class MainScheduler {
                 .withSchedule(CronScheduleBuilder.cronSchedule(cronExpression))
                 .build();
         Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-        scheduler.start();
         scheduler.scheduleJob(job, trigger);
+        scheduler.start();
     }
 
     public static void main(String[] args) {
