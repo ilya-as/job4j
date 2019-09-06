@@ -1,4 +1,6 @@
-package ru.job4j.parser;
+package ru.job4j.parser.items;
+
+import ru.job4j.parser.ParsedItem;
 
 import java.util.Calendar;
 
@@ -9,7 +11,7 @@ import java.util.Calendar;
  * @version $Id$
  * @since 0.1
  */
-public class Vacancy {
+public class Vacancy implements ParsedItem {
     /**
      * Заголовок темы вакансии.
      */

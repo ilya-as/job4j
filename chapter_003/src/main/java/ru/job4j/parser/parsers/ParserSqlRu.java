@@ -1,4 +1,4 @@
-package ru.job4j.parser;
+package ru.job4j.parser.parsers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -6,6 +6,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import ru.job4j.parser.utils.Config;
+import ru.job4j.parser.ParsedItem;
+import ru.job4j.parser.Parser;
+import ru.job4j.parser.items.Vacancy;
 
 import java.io.IOException;
 import java.text.DateFormatSymbols;
@@ -20,7 +24,7 @@ import java.util.*;
  * @version $Id$
  * @since 0.1
  */
-public class HTMLParser {
+public class ParserSqlRu implements Parser {
     /**
      * Заголовок темы вакансии.
      */
@@ -45,7 +49,7 @@ public class HTMLParser {
     /**
      * Логирование.
      */
-    private static final Logger LOG = LogManager.getLogger(HTMLParser.class.getName());
+    private static final Logger LOG = LogManager.getLogger(ParserSqlRu.class.getName());
 
     /**
      * Инициализирует:
@@ -53,7 +57,7 @@ public class HTMLParser {
      * @param config     подключение к файлу ресурсов Properties.
      * @param endingDate Дата последней вакансии.
      */
-    public HTMLParser(Config config, Calendar endingDate) {
+    public ParserSqlRu(Config config, Calendar endingDate) {
         this.config = config;
         this.init();
         this.endingDate = endingDate;
@@ -75,8 +79,8 @@ public class HTMLParser {
      * @return ArrayList содержащий найденые вакансии.
      * @throws IOException выбразывает при невозможности подкючиться к сайту.
      */
-    public ArrayList<Vacancy> getDataFromURL() throws IOException {
-        ArrayList<Vacancy> vacancyArray = new ArrayList<>();
+    public ArrayList<ParsedItem> getDataFromURL() throws IOException {
+        ArrayList<ParsedItem> vacancyArray = new ArrayList<>();
         int i = 1;
         while (i > 0) {
             Document doc = Jsoup.connect(urlLink + i).get();
