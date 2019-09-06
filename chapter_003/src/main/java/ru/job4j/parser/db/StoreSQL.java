@@ -1,7 +1,9 @@
-package ru.job4j.parser;
+package ru.job4j.parser.db;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.job4j.parser.utils.Config;
+import ru.job4j.parser.ParsedItem;
 
 import java.sql.Connection;
 import java.util.*;
@@ -37,14 +39,14 @@ public class StoreSQL implements AutoCloseable {
 
     /**
      * Инициализирует соединение с базой данных.
-     * Создает таблицу vacancy в базе данных, если её нет.
+     * Создает таблицу parsed_data в базе данных, если её нет.
      */
     private void prepareDB() {
         String url = config.get("url");
         String username = config.get("username");
         String password = config.get("password");
         String driver = config.get("driver");
-        String createTable = "CREATE TABLE IF NOT EXISTS vacancy (id  serial primary key not null,  name TEXT," +
+        String createTable = "CREATE TABLE IF NOT EXISTS parsed_data (id  serial primary key not null,  name TEXT," +
                 "url TEXT, text TEXT, date TIMESTAMP)";
         try {
             Class.forName(driver);
@@ -59,21 +61,21 @@ public class StoreSQL implements AutoCloseable {
     }
 
     /**
-     * Добавляет вакансии из ArrayList в базу данных.
+     * Добавляет распрарсенный элемент из ArrayList в базу данных.
      * Учитывает уникальность поля name
      *
-     * @param vacancyArray ArrayList вакансий.
+     * @param parsedItemsArray ArrayList распрарсенных элементов.
      */
-    public void addVacancy(ArrayList<Vacancy> vacancyArray) throws SQLException {
-        String insertQuery = "INSERT INTO vacancy (name, url, text, date) VALUES (?, ?, ?, ?)" +
+    public void addElement(ArrayList<ParsedItem> parsedItemsArray) throws SQLException {
+        String insertQuery = "INSERT INTO parsed_data (name, url, text, date) VALUES (?, ?, ?, ?)" +
                 " ON CONFLICT (name) DO NOTHING";
         try {
             PreparedStatement statement = this.connect.prepareStatement(insertQuery);
-            for (Vacancy vacancy : vacancyArray) {
-                statement.setString(1, vacancy.getName());
-                statement.setString(2, vacancy.getUrl());
-                statement.setString(3, vacancy.getText());
-                statement.setTimestamp(4, new Timestamp(vacancy.getDate().getTime().getTime()));
+            for (ParsedItem item : parsedItemsArray) {
+                statement.setString(1, item.getName());
+                statement.setString(2, item.getUrl());
+                statement.setString(3, item.getText());
+                statement.setTimestamp(4, new Timestamp(item.getDate().getTime().getTime()));
                 statement.addBatch();
             }
             statement.executeBatch();
@@ -84,12 +86,12 @@ public class StoreSQL implements AutoCloseable {
     }
 
     /**
-     * @return Возвращает дату самой свежей вакансии из базы данных.
+     * @return Возвращает дату самой свежей записи из базы данных.
      * Если БД пустая - вернет дату год назад от сегодня.
      */
     public Calendar getEndingDate() {
         Calendar calendar = new GregorianCalendar();
-        String maxDateQuery = "SELECT MAX(date) AS date FROM vacancy";
+        String maxDateQuery = "SELECT MAX(date) AS date FROM parsed_data";
         try {
             PreparedStatement statement = this.connect.prepareStatement(maxDateQuery);
             ResultSet resultSet = statement.executeQuery();
@@ -104,31 +106,6 @@ public class StoreSQL implements AutoCloseable {
             LOG.error(e.getMessage(), e);
         }
         return calendar;
-    }
-
-    /**
-     * @return Возвращает ArrayList вакансий из базы данных.
-     */
-    public ArrayList<Vacancy> getAll() throws SQLException {
-        ArrayList<Vacancy> vacancyArray = new ArrayList<>();
-        String getAllQuery = "SELECT * FROM vacancies";
-        try {
-            PreparedStatement statement = this.connect.prepareStatement(getAllQuery);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Calendar calendar = Calendar.getInstance();
-                Timestamp timestamp = resultSet.getTimestamp("date");
-                calendar.setTimeInMillis(timestamp.getTime());
-                vacancyArray.add(new Vacancy(
-                        resultSet.getString("name"),
-                        resultSet.getString("text"),
-                        resultSet.getString("url"),
-                        calendar));
-            }
-        } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
-        }
-        return vacancyArray;
     }
 
     /**
