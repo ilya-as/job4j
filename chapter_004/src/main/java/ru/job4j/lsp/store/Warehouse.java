@@ -1,4 +1,7 @@
-package ru.job4j.lsp;
+package ru.job4j.lsp.store;
+
+import ru.job4j.lsp.FoodStuff;
+import ru.job4j.lsp.Store;
 
 import java.util.ArrayList;
 
@@ -14,7 +17,7 @@ public class Warehouse implements Store {
     /**
      * Хранилище элеметнов класса Food
      */
-    private ArrayList<Food> foods;
+    private ArrayList<FoodStuff> foods;
 
     public Warehouse() {
         initFoods();
@@ -37,7 +40,7 @@ public class Warehouse implements Store {
     /**
      * @return Возвращает значение поля foods.
      */
-    public ArrayList<Food> getFoods() {
+    public ArrayList<FoodStuff> getFoods() {
         return foods;
     }
 
@@ -46,7 +49,7 @@ public class Warehouse implements Store {
      * @param food добавляет объект в хранилище
      *             элеметнов класса Food
      */
-    public void addFood(Food food) {
+    public void addFood(FoodStuff food) {
         this.foods.add(food);
     }
 
@@ -54,7 +57,7 @@ public class Warehouse implements Store {
      * @param food переданный продукт
      * @return возвращает булево значение - примет ли хранилище переданный продукт.
      */
-    public boolean accept(Food food) {
+    public boolean accept(FoodStuff food) {
         boolean result = false;
         double percentLife = food.evaluatePercentLife();
         if (percentLife < 25) {

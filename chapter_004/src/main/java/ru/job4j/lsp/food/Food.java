@@ -1,4 +1,6 @@
-package ru.job4j.lsp;
+package ru.job4j.lsp.food;
+
+import ru.job4j.lsp.FoodStuff;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -10,7 +12,7 @@ import java.time.Period;
  * @version $Id$
  * @since 0.1
  */
-public class Food {
+public class Food implements FoodStuff {
 
     /**
      * Наименование продукта
@@ -35,7 +37,7 @@ public class Food {
     /**
      * Скидка
      */
-    private double disscount;
+    private double discount;
 
     public Food(String name, LocalDate createDate, LocalDate expiredDate, double price) {
         this.name = name;
@@ -52,54 +54,65 @@ public class Food {
     }
 
     /**
-     * @return Возвращает значение поля disscount.
+     * @return Возвращает значение поля discount.
      */
-    public double getDisscount() {
-        return disscount;
+    public double getDiscount() {
+        return discount;
     }
 
     /**
      * @param price Устанавливает цену на продукт.
      */
-    public Food(double price) {
+    public void setPrice(double price) {
         this.price = price;
-    }
-
-    public Food(String name, LocalDate createDate, LocalDate expiredDate) {
-        this.name = name;
-        this.createDate = createDate;
-        this.expiredDate = expiredDate;
     }
 
     /**
      * @return Возвращает дату создания продукта.
      */
-    public LocalDate getCreateDate() {
+    private LocalDate getCreateDate() {
         return createDate;
     }
 
     /**
      * @return Возвращает дату окончания срока годности.
      */
-    public LocalDate getExpiredDate() {
+    private LocalDate getExpiredDate() {
         return expiredDate;
     }
 
     /**
-     * @param disscount Устанавливает скидку на продукт.
+     * @param discount Устанавливает скидку на продукт.
      */
-    public void setDisscount(double disscount) {
-        this.disscount = disscount;
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     /**
      * @return расчитывает процент времени от даты выпуска до окончания срока годности.
      */
+    @Override
     public double evaluatePercentLife() {
         LocalDate today = LocalDate.now();
         double totalTime = Period.between(this.getCreateDate(), this.getExpiredDate()).getDays();
         double currentTime = Period.between(this.getCreateDate(), today).getDays();
         return currentTime / totalTime * 100;
+    }
+
+    /**
+     * @return булево значение - подлежит или нет продукт переработке.
+     */
+    @Override
+    public boolean recyclable() {
+        return false;
+    }
+
+    /**
+     * @return булево значение - относится продукт к овощам или нет.
+     */
+    @Override
+    public boolean isVegetable() {
+        return false;
     }
 
     @Override
@@ -109,7 +122,8 @@ public class Food {
                 ", createDate=" + createDate +
                 ", expiredDate=" + expiredDate +
                 ", price=" + price +
-                ", disscount=" + disscount +
+                ", disscount=" + discount +
                 '}';
     }
+
 }

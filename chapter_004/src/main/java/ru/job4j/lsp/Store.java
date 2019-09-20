@@ -10,11 +10,11 @@ import java.util.ArrayList;
  */
 public interface Store {
 
-    void addFood(Food food);
+    void addFood(FoodStuff food);
 
-    boolean accept(Food food);
+    boolean accept(FoodStuff food);
 
-    ArrayList<Food> getFoods();
+    ArrayList<FoodStuff> getFoods();
 
     void clearFoods();
 

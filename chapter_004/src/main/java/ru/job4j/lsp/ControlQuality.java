@@ -32,7 +32,7 @@ public class ControlQuality {
     /**
      * Распределяет продукты из хранилища storeArray.
      */
-    public void selectPlace(Food food) {
+    public void selectPlace(FoodStuff food) {
         for (Store store : storeArray) {
             if (store.accept(food)) {
                 store.addFood(food);
