@@ -19,7 +19,6 @@ public class ControlQuality {
 
     public ControlQuality() {
         this.storeArray = new ArrayList<>();
-
     }
 
     /**
@@ -33,11 +32,26 @@ public class ControlQuality {
      * Распределяет продукты из хранилища storeArray.
      */
     public void selectPlace(FoodStuff food) {
-        for (Store store : storeArray) {
+        for (Store store : this.storeArray) {
             if (store.accept(food)) {
                 store.addFood(food);
                 break;
             }
+        }
+    }
+
+    /**
+     * Извлекает все продукты и перераспределяет их заново
+     */
+    public void resort() {
+        ArrayList<FoodStuff> tempArray = new ArrayList<>();
+        for (Store store : this.storeArray) {
+            tempArray.addAll(store.getFoods());
+            store.clearFoods();
+        }
+
+        for (FoodStuff food : tempArray) {
+            selectPlace(food);
         }
     }
 }
