@@ -31,11 +31,10 @@ public class SimpleGenerator {
         StringBuffer result = new StringBuffer();
         int count = 0;
         while (matcher.find()) {
-            if (mapOptions.containsKey(matcher.group(1))) {
-                matcher.appendReplacement(result, mapOptions.get(matcher.group(1)));
-            } else {
+            if (!mapOptions.containsKey(matcher.group(1))) {
                 throw new KeyNotFoundException("Ключ: " + matcher.group(1) + " не найден!");
             }
+            matcher.appendReplacement(result, mapOptions.get(matcher.group(1)));
             count++;
         }
         if ((mapOptions.size()) != count) {
