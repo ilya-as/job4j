@@ -4,12 +4,8 @@ import javafx.scene.shape.Rectangle;
 
 public class RectangleMove implements Runnable {
     private final Rectangle rect;
-    private int x = 0;
-    private int y = 0;
-    private int dx = 10;
-    private int dy = 2;
-    private int limitX;
-    private int limitY;
+    private final int limitX;
+    private final int limitY;
 
     public RectangleMove(Rectangle rect, int limitX, int limitY) {
         this.rect = rect;
@@ -19,27 +15,27 @@ public class RectangleMove implements Runnable {
 
     @Override
     public void run() {
+        int dx = 10;
+        int dy = 2;
         while (!Thread.currentThread().isInterrupted()) {
-            x = x + dx;
-            y = y + dy;
-            if (x + rect.getWidth() >= limitX) {
-                x = limitX - (int) rect.getWidth();
+            if (rect.getX() + rect.getWidth() + dx >= limitX) {
+                dx = -dx;
+                this.rect.setX(limitX);
+            }
+            if (rect.getX() + dx < 0) {
+                this.rect.setX(0);
                 dx = -dx;
             }
-            if (x < 0) {
-                x = 0;
-                dx = -dx;
-            }
-            if (y + rect.getHeight() >= limitY) {
+            if (rect.getY() + dy < 0) {
+                this.rect.setY(0);
                 dy = -dy;
             }
-            if (y < 0) {
-                y = 0;
+            if (rect.getY() + dy >= limitY) {
                 dy = -dy;
+                this.rect.setY(limitY);
             }
-            this.rect.setX(x);
-            this.rect.setY(y);
-            System.out.println(this.rect.getX());
+            this.rect.setX(rect.getX() + dx);
+            this.rect.setY(rect.getY() + dy);
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
