@@ -27,13 +27,9 @@ public class SimpleBlockingQueue<T> {
         this.queue.add(value);
     }
 
-    public synchronized T poll() {
+    public synchronized T poll() throws InterruptedException {
         while (this.queue.size() == 0) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            wait();
         }
         if (this.queue.size() == this.limit) {
             notifyAll();
@@ -41,5 +37,9 @@ public class SimpleBlockingQueue<T> {
 
         T value = this.queue.poll();
         return value;
+    }
+
+    public synchronized boolean isEmpty() {
+        return queue.isEmpty();
     }
 }
