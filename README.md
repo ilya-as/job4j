@@ -31,7 +31,7 @@
 - [Open Closed Principle](https://github.com/ilya-as/job4j/tree/master/chapter_004/src/main/java/ru/job4j/ocp)
 - [Liskov Substitution Principle](https://github.com/ilya-as/job4j/tree/master/chapter_004/src/main/java/ru/job4j/lsp)
 - [Interface Segregation Principle](https://github.com/ilya-as/job4j/tree/master/chapter_004/src/main/java/ru/job4j/isp)
-- [Dependency Inversion Principle
+- Dependency Inversion Principle
 - [Test Drive Development Principle](https://github.com/ilya-as/job4j/tree/master/chapter_004/src/main/java/ru/job4j/tdd)
    
   
