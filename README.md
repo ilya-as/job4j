@@ -23,6 +23,16 @@
 - Queries sql -- [create](https://github.com/ilya-as/job4j/tree/master/chapter_003/src/main/java/ru/job4j/crud) -- [joins](https://github.com/ilya-as/job4j/blob/master/chapter_003/src/main/java/ru/job4j/joins/car_catalog.sql) -- [filters](https://github.com/ilya-as/job4j/blob/master/chapter_003/src/main/java/ru/job4j/query/filters.sql)
 - [Convert XML](https://github.com/ilya-as/job4j/tree/master/chapter_003/src/main/java/ru/job4j/jdbc/xmlxslt)
 - [Vacancy parser from sql.ru](https://github.com/ilya-as/job4j/tree/master/chapter_003/src/main/java/ru/job4j/parser)
+
+
+**Chapter 004. S.O.L.I.D and TDD principles.**
+==================================
+- [Single Responsibility Principle](https://github.com/ilya-as/job4j/tree/master/chapter_004/src/main/java/ru/job4j/srp)
+- [Open Closed Principle](https://github.com/ilya-as/job4j/tree/master/chapter_004/src/main/java/ru/job4j/ocp)
+- [Liskov Substitution Principle](https://github.com/ilya-as/job4j/tree/master/chapter_004/src/main/java/ru/job4j/lsp)
+- [Interface Segregation Principle](https://github.com/ilya-as/job4j/tree/master/chapter_004/src/main/java/ru/job4j/isp)
+- [Dependency Inversion Principle
+- [Test Drive Development Principle](https://github.com/ilya-as/job4j/tree/master/chapter_004/src/main/java/ru/job4j/tdd)
    
   
  
