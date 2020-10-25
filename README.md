@@ -20,7 +20,7 @@
 
 **Chapter 003. SQL, JDBC.**
 ==================================
-- Queries sql: -- [create](https://github.com/ilya-as/job4j/tree/master/chapter_003/src/main/java/ru/job4j/crud) -- [joins](https://github.com/ilya-as/job4j/blob/master/chapter_003/src/main/java/ru/job4j/joins/car_catalog.sql) -- [filters](https://github.com/ilya-as/job4j/blob/master/chapter_003/src/main/java/ru/job4j/query/filters.sql)
+- Queries sql -- [create](https://github.com/ilya-as/job4j/tree/master/chapter_003/src/main/java/ru/job4j/crud) -- [joins](https://github.com/ilya-as/job4j/blob/master/chapter_003/src/main/java/ru/job4j/joins/car_catalog.sql) -- [filters](https://github.com/ilya-as/job4j/blob/master/chapter_003/src/main/java/ru/job4j/query/filters.sql)
 - [Convert XML](https://github.com/ilya-as/job4j/tree/master/chapter_003/src/main/java/ru/job4j/jdbc/xmlxslt)
 - [Vacancy parser from sql.ru](https://github.com/ilya-as/job4j/tree/master/chapter_003/src/main/java/ru/job4j/parser)
    
