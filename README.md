@@ -33,6 +33,15 @@
 - [Interface Segregation Principle](https://github.com/ilya-as/job4j/tree/master/chapter_004/src/main/java/ru/job4j/isp)
 - Dependency Inversion Principle
 - [Test Drive Development Principle](https://github.com/ilya-as/job4j/tree/master/chapter_004/src/main/java/ru/job4j/tdd)
+
+
+**Chapter 005. Multithreading.**
+==================================
+- [MultithreadingTrouble](https://github.com/ilya-as/job4j/blob/master/chapter_005/src/main/java/ru/job4j/jmm/MultithreadingTrouble.java)
+- [SingleLockList](https://github.com/ilya-as/job4j/blob/master/chapter_005/src/main/java/ru/job4j/monitore/SingleLockList.java)
+- [ThreadSafe Store](https://github.com/ilya-as/job4j/blob/master/chapter_005/src/main/java/ru/job4j/monitore/UserStore.java)
+- [Ping-pong](https://github.com/ilya-as/job4j/tree/master/chapter_005/src/main/java/ru/job4j/pingpong)
+- [Producer-Consumer and SimpleBlockingQueue](https://github.com/ilya-as/job4j/tree/master/chapter_005/src/main/java/ru/job4j/wait)
    
   
  
