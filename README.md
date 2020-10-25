@@ -8,6 +8,14 @@
 - [Tree](https://github.com/ilya-as/job4j/tree/master/chapter_001/src/main/java/ru/job4j/tree)
 - [Collection of statistics on collection changes.](https://github.com/ilya-as/job4j/tree/master/chapter_001/src/main/java/ru/job4j/statistic)
 
+
+ **Chapter 002. Input/Output.**
+==================================
+- [Server availability analysis.](https://github.com/ilya-as/job4j/blob/master/chapter_002/src/main/java/ru/job4j/io/Analizy.java)
+- [The archiver.](https://github.com/ilya-as/job4j/tree/master/chapter_002/src/main/java/ru/job4j/io/archive)
+- [Console chat.](https://github.com/ilya-as/job4j/blob/master/chapter_002/src/main/java/ru/job4j/io/ConsoleChat.java)
+- [Oracle bot.](https://github.com/ilya-as/job4j/tree/master/chapter_002/src/main/java/ru/job4j/socket)
+- [File finder by critery.](https://github.com/ilya-as/job4j/tree/master/chapter_002/src/main/java/ru/job4j/exam)
    
   
  
